@@ -1,4 +1,4 @@
-package dk.cngroup.kolnicka;
+package dk.cngroup.kolnicka.greeting;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

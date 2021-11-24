@@ -1,10 +1,9 @@
-package dk.cngroup.kolnicka;
+package dk.cngroup.kolnicka.wishlist;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dk.cngroup.kolnicka.repository.WishRepository;
 import lombok.RequiredArgsConstructor;
 
 @RestController

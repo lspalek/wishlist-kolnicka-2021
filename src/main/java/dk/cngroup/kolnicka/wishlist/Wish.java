@@ -1,4 +1,4 @@
-package dk.cngroup.kolnicka;
+package dk.cngroup.kolnicka.wishlist;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
