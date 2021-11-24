@@ -1,5 +1,6 @@
 package dk.cngroup.kolnicka;
 
+import static org.assertj.core.api.BDDAssertions.then;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -17,6 +18,8 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import dk.cngroup.kolnicka.repository.WishRepository;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class WishListIntegrationTest {
@@ -29,7 +32,8 @@ public class WishListIntegrationTest {
 
     private Wish wish;
 
-    private ResultActions resultActions;
+    @Autowired
+    private WishRepository repository;
 
     @Test
     public void shouldCreateNewWish() throws Exception {
@@ -46,17 +50,10 @@ public class WishListIntegrationTest {
     @Test
     public void shouldCreateWish() throws Exception {
         givenWish();
-        String givenWishPayload = objectMapper.writeValueAsString(wish);
 
-        mockMvc.perform(post("/wishes").content(givenWishPayload))
-                .andDo(print())
-                .andExpect(status().isCreated())
-//                .andExpect(jsonPath("id", notNullValue()))
-                .andExpect(jsonPath("description", equalTo("New test for creating wish")))
-                .andExpect(jsonPath("link", equalTo("http://www.spring.io")))
-                .andExpect(jsonPath("priority", equalTo(3)))
-        ;
+        whenWishCreated();
 
+        thenCheckLastCreatedWish();
     }
 
     private void givenWish() {
@@ -65,6 +62,22 @@ public class WishListIntegrationTest {
                 .description("New test for creating wish")
                 .link("http://www.spring.io")
                 .build();
+    }
+
+    private void whenWishCreated() throws Exception {
+        String givenWishPayload = objectMapper.writeValueAsString(wish);
+
+        mockMvc.perform(post("/wishes").content(givenWishPayload))
+                .andDo(print())
+                .andExpect(status().isCreated());
+    }
+
+    private void thenCheckLastCreatedWish() {
+        Wish newWish = repository.findTopByOrderByIdDesc();
+        then(newWish.getDescription()).isEqualTo("New test for creating wish");
+        then(newWish.getLink()).isEqualTo("http://www.spring.io");
+        then(newWish.getPriority()).isEqualTo(1);
+        then(newWish.getId()).isNotNull();
     }
 
 }

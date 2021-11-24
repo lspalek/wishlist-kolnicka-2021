@@ -22,23 +22,19 @@ public class GreetingIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
+    public void shouldReturnHelloWorld() throws Exception {
+        mockMvc.perform(get("/hello"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(equalTo("Hello World")));
+    }
+
+    @Test
     public void shouldReturnHelloLukas() throws Exception {
         mockMvc.perform(get("/hello/Lukas"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(equalTo("Hello Lukas")));
-    }
-
-    @Test
-    public void shouldCreateNewWish() throws Exception {
-
-        mockMvc.perform(get("/wish/new"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("id", notNullValue()))
-                .andExpect(jsonPath("description", equalTo("White t-shirt")))
-                .andExpect(jsonPath("priority", equalTo(3)));
-
     }
 
 }

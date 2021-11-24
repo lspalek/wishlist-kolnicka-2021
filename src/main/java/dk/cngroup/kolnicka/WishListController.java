@@ -14,7 +14,7 @@ public class WishListController {
 
     @GetMapping("/new-wish")
     public Wish getNewWish() {
-        return wishRepository.save(Wish.builder()
+       return wishRepository.save(Wish.builder()
                 .description("White t-shirt")
                 .priority(3)
                 .build());

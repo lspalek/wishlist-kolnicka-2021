@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import dk.cngroup.kolnicka.Wish;
 
 public interface WishRepository extends CrudRepository<Wish, Long> {
+    Wish findTopByOrderByIdDesc();
 }

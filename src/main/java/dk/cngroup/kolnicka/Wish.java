@@ -22,5 +22,5 @@ public class Wish {
     private Long id;
     private String description;
     private String link;
-    private long priority;
+    private Integer priority;
 }
