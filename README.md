@@ -20,3 +20,6 @@ Useful runtime URLs:
 * **[Hello Spring](http://localhost:8080/hello/Spring)**
 * **[List all wishes](http://localhost:8080/wishes)**
 * **[H2 Console](http://localhost:8080/h2)**
+
+Nice Spring Boot video tutorial:
+* [From Zero to Hero with Spring Boot](https://www.youtube.com/watch?v=aA4tfBGY6jY)
